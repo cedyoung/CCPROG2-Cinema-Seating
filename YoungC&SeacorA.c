@@ -35,16 +35,42 @@ typedef struct
 	
 }system;
 
-void funcSystem(system mov[])
+void line()
+{
+	printf("-----------------------------\n");
+}
+
+void funcMenu(system mov[])
 {
 	int nLoop=1,nSelect;
 	while(nLoop==1)
 	{
-		printf("%7s","Cinema Seating System\n");
-		printf("-----------------------------\n");
-		printf(" [1] Load Schedule\n [2] View Schedule\n [3] Seat Select\n [4] Search Movie\n");
-		printf("-----------------------------\n");
+		printf("    %s","Cinema Seating System\n");
+		line();
+		printf(" [1] Load Schedule\n [2] View Schedule\n [3] Seat Select\n [4] Search Movie\n [5] Exit\n");
+		line();
 		scanf("%d",&nSelect);
+		switch(nSelect)
+		{
+			case 1:
+				//function
+				break;
+			case 2:
+				//function
+				break;
+			case 3:
+				//function
+				break;
+			case 4:
+				//function
+				break;
+			case 5:
+				nLoop=0;
+				break;
+			default:
+				break;
+			
+		}
 	}
 }
 
@@ -52,9 +78,8 @@ void funcSystem(system mov[])
 int main()
 {
 	system mov[500];
-	mov[0].cinema=1;
-	funcSystem(mov);
-	printf("%d",mov[1].cinema);
+	funcMenu(mov);
+
 
  	return 0;
 }
