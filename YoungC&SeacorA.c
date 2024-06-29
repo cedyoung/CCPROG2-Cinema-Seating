@@ -11,44 +11,168 @@ in part or whole or otherwise plagiarized the work of other students and/or pers
 Cedric Francis Young, DLSU ID# 12372439  & <insert name>
 *********************************************************************************************************/
 
+/*
+		STRUCT USAGE GUIDE
+	
+	SYSTEM STRUCT - Cinema
+	
+	PASS INFO OF ENTIRE CINEMA NO. - cinema[cinema no.]
+	
+	PASS INFO OF CINEMA'S SHOWTIME & SEATS - cinema[cinema no.].show[showtime no.]
+	
+	PASS INFO OF AVAILABILITY OF SEAT - cinema[cinema no.].show[showtime no.].seat[ROW][COLUMN]
+	
+	
+	
+	CLOCK STRUCT
+	time.hour
+	time.min
+	time.night
+	
+*/
+
+//night = 1 if PM, night = 0 if AM
 typedef struct
 {
-	int time;
-	int seats[50];
-}show;
+	int hour;
+	int min;
+	int night;
+}clock;
+
 
 /*
-	cinema number
-	movie title
-	movie description
-	runtime
-	seats
+	showtime start
+	showtime end
+	available seats
 */
 typedef struct
 {
-	int cinema;
+	clock showstart;
+	clock showend;
+	int seats[5][10];
+}st;
+
+/*
+	movie title
+	movie description
+	runtime
+	showtimes
+*/
+typedef struct
+{
 	char title[50];
 	char desc[100];
 	int runtime;
-	show shtime[6];
-	
+	st show[6];
 	
 }system;
 
-void line()
+//	 line prints out a line
+void line(int length)
 {
-	printf("-----------------------------\n");
+	int i;
+	for(i=0;i<length;i++)
+		printf("-");
+	
+	printf("\n");
+	
+
 }
 
-void funcMenu(system mov[])
+/*	 funcAddtime returns the time in struct format with minutes added
+	@param time - struct carrying time details
+	@param addmin - minutes to be added to time
+*/
+void funcAddtime(clock *time, int addmin)
+{
+	
+	while(time->min>=60)
+	{
+		if(time->hour==12)
+		{
+			time->hour=1;
+			if(time->night==0)
+				time->night=1;
+			if(time->night==1)
+				time->night=0;
+		}
+		else if(time->hour<12)
+		{
+			time->hour++;
+		}
+		time->min-=60;
+	}
+}
+
+/*	funcDispClock prints out the time in clock format
+	@param time - struct containing time details
+*/
+void funcDispClock(clock time)
+{
+	printf("%d:",time.hour);
+	
+	if(time.min<10)
+		printf("0%d",time.min);
+	else
+		printf("%d",time.min);
+		
+	if(time.night==0)
+		printf(" am");
+	else
+		printf(" pm");
+}
+
+/*	funcInitSeats sets all seats to empty (0)
+	@param a - specific showtime of a movie
+*/
+void funcInitSeats(st *a)
+{
+	int i,j;
+	
+	for(i=0;i<5;i++)
+	{
+		for(j=0;j<10;j++)
+		{
+			a->seats[i][j]=0;
+		}
+	}
+}
+
+/*	funcDispSeats
+*/
+void funcDispSeats(st a)
+{
+	int i,j;
+	
+	for(i=0;i<5;i++)
+	{
+		line(52);
+		for(j=0;j<10;j++)
+		{
+			if(a.seats[i][j]==0)
+			{
+				printf("| %c%d ",'A'+i,j+1);
+			}
+			else if(a.seats[i][j]==1)
+			{
+				printf("| X  ");
+			}
+		}
+		printf("|\n");
+	}
+	line(52);
+}
+
+
+void funcMenu(system cinema[])
 {
 	int nLoop=1,nSelect;
 	while(nLoop==1)
 	{
 		printf("    %s","Cinema Seating System\n");
-		line();
+		line(30);
 		printf(" [1] Load Schedule\n [2] View Schedule\n [3] Seat Select\n [4] Search Movie\n [5] Exit\n");
-		line();
+		line(30);
 		scanf("%d",&nSelect);
 		switch(nSelect)
 		{
@@ -77,9 +201,18 @@ void funcMenu(system mov[])
 
 int main()
 {
-	system mov[500];
-	funcMenu(mov);
+	//cinema number
+	system cinema[6];
+	int i,j;
 
-
- 	return 0;
+	//initializes all seats as empty
+	for(i=0;i<6;i++)
+	{
+		for(j=0;j<6;j++)
+		funcInitSeats(&cinema[i].show[j]);
+	}
+	
+	
+	funcMenu(cinema);
+	        
 }
