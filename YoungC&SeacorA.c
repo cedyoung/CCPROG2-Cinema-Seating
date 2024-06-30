@@ -43,13 +43,15 @@ typedef struct
 /*
 	showtime start
 	showtime end
-	available seats
+	seat info; 1 if taken, 0 if empty
+	no. of seats taken
 */
 typedef struct
 {
 	clock showstart;
 	clock showend;
 	int seats[5][10];
+	int takenS;
 }st;
 
 /*
@@ -128,6 +130,8 @@ void funcDispClock(clock time)
 void funcInitSeats(st *a)
 {
 	int i,j;
+	
+	a->	takenS=0;
 	
 	for(i=0;i<5;i++)
 	{
@@ -209,7 +213,7 @@ int main()
 	for(i=0;i<6;i++)
 	{
 		for(j=0;j<6;j++)
-		funcInitSeats(&cinema[i].show[j]);
+			funcInitSeats(&cinema[i].show[j]);
 	}
 	
 	
