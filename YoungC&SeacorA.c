@@ -31,12 +31,12 @@ Cedric Francis Young, DLSU ID# 12372439  & <insert name>
 	
 */
 
-//night = 1 if PM, night = 0 if AM
+//half = am or pm
 typedef struct
 {
 	int hour;
 	int min;
-	int night;
+	char half[2];
 }clock;
 
 
@@ -93,10 +93,10 @@ void funcAddtime(clock *time, int addmin)
 		if(time->hour==12)
 		{
 			time->hour=1;
-			if(time->night==0)
-				time->night=1;
-			if(time->night==1)
-				time->night=0;
+			if(time->half[0]=='a')
+				strcpy(time->half,"pm");
+			if(time->half[0]=='p')
+				strcpy(time->half,"am");
 		}
 		else if(time->hour<12)
 		{
@@ -118,10 +118,7 @@ void funcDispClock(clock time)
 	else
 		printf("%d",time.min);
 		
-	if(time.night==0)
-		printf(" am");
-	else
-		printf(" pm");
+	printf("%s",time.half);
 }
 
 /*	funcInitSeats sets all seats to empty (0)
