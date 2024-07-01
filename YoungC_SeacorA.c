@@ -13,15 +13,21 @@ Cedric Francis Young, DLSU ID# 12372439  & <insert name>
 *********************************************************************************************************/
 
 /*
-		STRUCT USAGE GUIDE
+		STRUCT USAGE GUIDE -Cedric
 	
-	SYSTEM STRUCT - Cinema
+	Cin STRUCT - Cinema
 	
 	PASS INFO OF ENTIRE CINEMA NO. - cinema[cinema no.]
 	
 	PASS INFO OF CINEMA'S SHOWTIME & SEATS - cinema[cinema no.].show[showtime no.]
 	
 	PASS INFO OF AVAILABILITY OF SEAT - cinema[cinema no.].show[showtime no.].seat[ROW][COLUMN]
+	
+	PASS INFO OF TITLE - cinema[cinema no.].title
+	
+	PASS INFO OF DESCRIPTION - cinema[cinema no.].desc
+	
+	PASS INFO OF RUNTIME - cinema[cinema no.].runtime
 	
 	
 	
@@ -84,10 +90,11 @@ line(int length)
 
 }
 
-/*	 funcAddtime returns the time in struct format with minutes added
+/*	funcAddtime returns the time in struct format with minutes added
 	@param time - struct carrying time details
 	@param addmin - minutes to be added to time
 	
+	contributed - C.Y.
 */
 void 
 funcAddtime(clock *time, int addmin)
@@ -113,6 +120,8 @@ funcAddtime(clock *time, int addmin)
 
 /*	funcDispClock prints out the time in clock format
 	@param time - struct storing time info
+	
+	contributed - C.Y.
 */
 void 
 funcDispClock(clock time)
@@ -130,6 +139,8 @@ funcDispClock(clock time)
 
 /*	funcInitSeats sets all seats to empty (0)
 	@param a - specific showtime of a movie
+	
+	contributed - C.Y.
 */
 void 
 funcInitSeats(st *a)
@@ -148,6 +159,8 @@ funcInitSeats(st *a)
 }
 
 /*	funcDispSeats displays all seats with their number and letter, and shows taken seats as X
+
+	contributed - C.Y.
 */
 void 
 funcDispSeats(st a)
@@ -178,6 +191,7 @@ funcDispSeats(st a)
 	@param Fname - string input for file name to open
 	
 	@return 1 if file is found, return 0 if not found
+	contributed - C.Y.
 */
 int 
 funcLoading(cin cinema[], char strFname[50])
@@ -255,6 +269,7 @@ funcLoading(cin cinema[], char strFname[50])
 	@param cinema - struct array to store info
 	
 	@returns 1 if file is found, 0 if not found
+	contributed - C.Y.
 */
 int 
 funcLoadOption(cin cinema[])
