@@ -232,10 +232,12 @@ funcLoading(cin cinema[], char strFname[50])
 			fscanf(fp,"%d",&rt);
 			cinema[i-1].runtime=rt;
 			
+			//scans showtimes
 			for(j=0;j<6;j++)
 			{
 				fscanf(fp,"\r%[^\n]s",strTime);
-				//printf("%s\n",strTime);
+				
+				//searches for index of am/pm
 				for(k=0;k<7;k++)
 				{
 		
@@ -243,17 +245,18 @@ funcLoading(cin cinema[], char strFname[50])
 						dn=k;
 				}
 				
+				//saves am/pm to struct info
 				cinema[i-1].show[j].showstart.half[0]=strTime[dn];
 				cinema[i-1].show[j].showstart.half[1]=strTime[dn+1];
 				cinema[i-1].show[j].showstart.half[2]='\0';
 				
 				strTime[dn]='\0';
-						
+				//saves minutes to struct info
 				strcpy(min,strTime+dn-2);
 				cinema[i-1].show[j].showstart.min = atoi(min);
 				
 				strTime[dn-3]='\0';
-				
+				//saves hours to struct info
 				strcpy(hour,strTime);
 				cinema[i-1].show[j].showstart.hour = atoi(hour);
 
